@@ -6,13 +6,19 @@ okno.geometry('500x700')
 okno.title('Kvíz')
 
 def over_meno():
+    '''
+    funkcia načíta meno a skontroluje, či nie je príliš dlhé alebo neobsahuje nepovolené znaky (ak áno - vyskočí okno s chybovou správou), potom hodnotu vo vstupe vymaže
+    '''
     m = meno.get()
     s_znaky = '@_-ß°{()}#*&[]\;|?><:~,€/ŁłĐđ÷×¤$'
     for i in s_znaky:
         if i in m:
-            messagebox.showwarning('Pozor!', 'Meno obsahuje nepovolené znaky')
+            messagebox.showwarning('Pozor!', 'Meno obsahuje nepovolené znaky!')
             meno.set('')
-            
+    if len(m) >= 30:
+        messagebox.showwarning('Pozor!', 'Meno je príliš dlhé!')
+        meno.set('')
+    #treba este nastavit prekliknutie na kviz
 
 
 Label(okno, text='Zadajte meno').grid(row=1, column=1)
