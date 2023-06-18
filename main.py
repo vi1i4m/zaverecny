@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+import random
 
 okno = Tk()
 okno.geometry('500x700')
@@ -13,7 +14,7 @@ def nacitaj_otazky(subor):
     '''
     with open(subor, 'r', encoding="utf-8") as f:
         otazka = f.read().splitlines()
-    return otazka[0]
+    return random.choice(otazka)
 
 def over_meno():
     '''
