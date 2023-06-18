@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+import random
 
 okno = Tk()
 okno.geometry('500x700')
@@ -19,6 +20,15 @@ def over_meno():
         messagebox.showwarning('Pozor!', 'Meno je príliš dlhé!')
         meno.set('')
     #treba este nastavit prekliknutie na kviz
+
+def nacitaj_otazky(subor):
+    '''
+    funkcia, ktorá spracuje súbor s otázkami a vráti pseudonáhodnú otázku
+    '''
+    with open(subor, 'r', encoding="utf-8") as f:
+        otazka = f.read().splitlines()
+    return random.choice(otazka)
+
 
 
 Label(okno, text='Zadajte meno').grid(row=1, column=1)
