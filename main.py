@@ -43,11 +43,12 @@ def over_meno():
 
 def spusti_kviz():
     otazka = nacitaj_otazky('otazky.txt')
-    otazka_label.config(text=otazka)
-    odpoved1_button.config(text='Odpoveď 1')
-    odpoved2_button.config(text='Odpoveď 2')
-    odpoved3_button.config(text='Odpoveď 3')
-    odpoved4_button.config(text='Odpoveď 4')
+    otazka_odpovede = otazka.split('-')
+    otazka_label.config(text=otazka_odpovede[0])
+    odpoved1_button.config(text=otazka_odpovede[1])
+    odpoved2_button.config(text=otazka_odpovede[2])
+    odpoved3_button.config(text=otazka_odpovede[3])
+    odpoved4_button.config(text=otazka_odpovede[4])
 
     #Zobrazenie odpovedových tlačidiel
     odpoved1_button.grid()
