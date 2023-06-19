@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import messagebox
-import random
 
 okno = Tk()
 okno.geometry('500x700')
@@ -10,11 +9,11 @@ okno.columnconfigure(50)
 
 def nacitaj_otazky(subor):
     '''
-    funkcia, ktorá spracuje súbor s otázkami a vráti pseudonáhodnú otázku
+    funkcia, ktorá spracuje súbor s otázkami a vráti zoznam otázok
     '''
     with open(subor, 'r', encoding="utf-8") as f:
-        otazka = f.read().splitlines()
-    return random.choice(otazka)
+        otazky = f.read().splitlines()
+    return otazky
 
 def over_meno():
     '''
@@ -43,19 +42,38 @@ def over_meno():
     spusti_kviz()
 
 def spusti_kviz():
-    otazka = nacitaj_otazky('otazky.txt')
-    otazka_odpovede = otazka.split('-')
+    '''
+    Táto funkcia spustí kvíz po zadaní mena s použitím global indexovania z otázok
+    '''
+    global aktualna_otazka_index
+    otazka_odpovede = otazky[aktualna_otazka_index].split('-')
     otazka_label.config(text=otazka_odpovede[0])
-    odpoved1_button.config(text=otazka_odpovede[1])
-    odpoved2_button.config(text=otazka_odpovede[2])
-    odpoved3_button.config(text=otazka_odpovede[3])
-    odpoved4_button.config(text=otazka_odpovede[4])
+    odpoved1_button.config(text=otazka_odpovede[1], command=lambda: zobraz_novu_otazku())
+    odpoved2_button.config(text=otazka_odpovede[2], command=lambda: zobraz_novu_otazku())
+    odpoved3_button.config(text=otazka_odpovede[3], command=lambda: zobraz_novu_otazku())
+    odpoved4_button.config(text=otazka_odpovede[4], command=lambda: zobraz_novu_otazku())
 
     #Zobrazenie odpovedových tlačidiel
     odpoved1_button.grid()
     odpoved2_button.grid()
     odpoved3_button.grid()
     odpoved4_button.grid()
+
+    aktualna_otazka_index += 1
+
+def zobraz_novu_otazku():
+    '''
+    Táto funkcia zobrazí novú otázku po kliknutí na odpoveď
+    '''
+    odpoved1_button.grid_remove()
+    odpoved2_button.grid_remove()
+    odpoved3_button.grid_remove()
+    odpoved4_button.grid_remove()
+
+    if aktualna_otazka_index < len(otazky):
+        spusti_kviz()
+    else:
+        messagebox.showinfo('Kvíz', 'Kvíz skončil')
 
 meno_label = Label(okno, text='Zadajte meno')
 meno_label.grid(row=1, column=1)
@@ -65,22 +83,25 @@ meno_entry.grid(row=2, column=1)
 zacat_button = Button(okno, text='Začať kvíz', command=over_meno)
 zacat_button.grid(row=3, column=1)
 
+otazky = nacitaj_otazky('otazky.txt')
+aktualna_otazka_index = 0
+
 otazka_label = Label(okno, text='')
 otazka_label.grid(row=4, column=1, columnspan=2)
 
-odpoved1_button = Button(okno, text='', command=lambda: print('Odpoveď 1'))
+odpoved1_button = Button(okno, text='')
 odpoved1_button.grid(row=5, column=1)
 odpoved1_button.grid_remove() #Skrytie tlačidla
 
-odpoved2_button = Button(okno, text='', command=lambda: print('Odpoveď 2'))
+odpoved2_button = Button(okno, text='')
 odpoved2_button.grid(row=5, column=2)
 odpoved2_button.grid_remove()
 
-odpoved3_button = Button(okno, text='', command=lambda: print('Odpoveď 3'))
+odpoved3_button = Button(okno, text='')
 odpoved3_button.grid(row=6, column=1)
 odpoved3_button.grid_remove()
 
-odpoved4_button = Button(okno, text='', command=lambda: print('Odpoveď 4'))
+odpoved4_button = Button(okno, text='')
 odpoved4_button.grid(row=6, column=2)
 odpoved4_button.grid_remove()
 
