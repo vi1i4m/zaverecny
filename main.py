@@ -1,3 +1,4 @@
+import random
 from tkinter import *
 from tkinter import messagebox
 
@@ -47,11 +48,23 @@ def spusti_kviz():
     '''
     global aktualna_otazka_index
     otazka_odpovede = otazky[aktualna_otazka_index].split('-')
+    otazka_odpovede1 = otazka_odpovede[random.randint(1, 4)]
+    otazka_odpovede2 = otazka_odpovede[random.randint(1, 4)]
+    otazka_odpovede3 = otazka_odpovede[random.randint(1, 4)]
+    otazka_odpovede4 = otazka_odpovede[random.randint(1, 4)]
+    while otazka_odpovede1 == otazka_odpovede2 or otazka_odpovede1 == otazka_odpovede3 or otazka_odpovede1 == otazka_odpovede4:
+        otazka_odpovede1 = otazka_odpovede[random.randint(1, 4)]
+    while otazka_odpovede1 == otazka_odpovede2 or otazka_odpovede2 == otazka_odpovede3 or otazka_odpovede2 == otazka_odpovede4:
+        otazka_odpovede2 = otazka_odpovede[random.randint(1, 4)]
+    while otazka_odpovede1 == otazka_odpovede3 or otazka_odpovede2 == otazka_odpovede3 or otazka_odpovede3 == otazka_odpovede4:
+        otazka_odpovede3 = otazka_odpovede[random.randint(1, 4)]
+    while otazka_odpovede1 == otazka_odpovede4 or otazka_odpovede2 == otazka_odpovede4 or otazka_odpovede3 == otazka_odpovede4:
+        otazka_odpovede4 = otazka_odpovede[random.randint(1, 4)]
     otazka_label.config(text=otazka_odpovede[0])
-    odpoved1_button.config(text=otazka_odpovede[1], command=lambda: zobraz_novu_otazku())
-    odpoved2_button.config(text=otazka_odpovede[2], command=lambda: zobraz_novu_otazku())
-    odpoved3_button.config(text=otazka_odpovede[3], command=lambda: zobraz_novu_otazku())
-    odpoved4_button.config(text=otazka_odpovede[4], command=lambda: zobraz_novu_otazku())
+    odpoved1_button.config(text=otazka_odpovede1, command=lambda: zobraz_novu_otazku())
+    odpoved2_button.config(text=otazka_odpovede2, command=lambda: zobraz_novu_otazku())
+    odpoved3_button.config(text=otazka_odpovede3, command=lambda: zobraz_novu_otazku())
+    odpoved4_button.config(text=otazka_odpovede4, command=lambda: zobraz_novu_otazku())
 
     #Zobrazenie odpovedových tlačidiel
     odpoved1_button.grid()
