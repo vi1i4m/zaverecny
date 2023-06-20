@@ -4,13 +4,15 @@ from tkinter import messagebox
 
 okno = Tk()
 okno.title('Kvíz')
+okno.config(bg='#46178f')
+counter = 0
 
 # Vyrovnaie okna
 window_width = okno.winfo_screenwidth()
 window_height = okno.winfo_screenheight()
 x_coordinate = int((window_width / 2) - (500 / 2))
 y_coordinate = int((window_height / 2) - (700 / 2))
-okno.geometry(f"500x600+{x_coordinate}+{y_coordinate}")
+okno.geometry(f"500x650+{x_coordinate}+{y_coordinate}")
 
 def nacitaj_otazky(subor):
     '''
@@ -92,15 +94,22 @@ def spusti_kviz():
         otazka_odpovede3 = otazka_odpovede[random.randint(1, 4)]
     while otazka_odpovede1 == otazka_odpovede4 or otazka_odpovede2 == otazka_odpovede4 or otazka_odpovede3 == otazka_odpovede4:
         otazka_odpovede4 = otazka_odpovede[random.randint(1, 4)]
+    otazka_label.config(text=otazka_odpovede[0], pady=10, bg='#46178f', fg='white')
+    odpoved1_button.config(text=otazka_odpovede1, height=3,command=lambda: (body1(), zobraz_novu_otazku()), bg='#e21a3c', fg='white', font=('Arial', 20))
+    odpoved2_button.config(text=otazka_odpovede2, height=3, command=lambda: (body2(), zobraz_novu_otazku()), bg='#1368CE', fg='white', font=('Arial', 20))
+    odpoved3_button.config(text=otazka_odpovede3, height=3, command=lambda: (body3(), zobraz_novu_otazku()), bg='#26890C', fg='white', font=('Arial', 20))
+    odpoved4_button.config(text=otazka_odpovede4, height=3, command=lambda: (body4(), zobraz_novu_otazku()), bg='#FFA502', fg='white', font=('Arial', 20))
+    counter_label.config(text=f'Body: {counter}', height=3, font=('Arial', 15), fg='white')
 
-    otazka_label.config(text=otazka_odpovede[0])
-    odpoved1_button.config(text=otazka_odpovede1, command=lambda: (body1(), zobraz_novu_otazku()))
-    odpoved2_button.config(text=otazka_odpovede2, command=lambda: (body2(), zobraz_novu_otazku()))
-    odpoved3_button.config(text=otazka_odpovede3, command=lambda: (body3(), zobraz_novu_otazku()))
-    odpoved4_button.config(text=otazka_odpovede4, command=lambda: (body4(), zobraz_novu_otazku()))
-    counter_label.config(text=f'Body: {counter}', font=('Arial', 8))
-
+    # Zobrazenie odpovedových tlačidiel
+    odpoved1_button.pack(fill=X)
+    odpoved2_button.pack(fill=X)
+    odpoved3_button.pack(fill=X)
+    odpoved4_button.pack(fill=X)
+    # odpovede = Frame(okno)
+    
     counter_label.pack()
+    counter_label.config(bg='#46178f')
     aktualna_otazka_index += 1
 
 def zobraz_novu_otazku():
@@ -118,7 +127,7 @@ def zobraz_novu_otazku():
     odpoved4_button.pack_forget()
     counter_label.pack_forget()
 
-    if aktualna_otazka_index < len(otazky):
+    if aktualna_otazka_index < 10:
         spusti_kviz()
     else:
         otazka_label.pack_forget()
@@ -126,13 +135,13 @@ def zobraz_novu_otazku():
         end_button.pack()
         messagebox.showinfo('Kvíz', f'Kvíz skončil, počet bodov: {counter} z {len(otazky)}. ({percenta()}%)')
 
-meno_label = Label(okno, text='Zadajte meno', font=("Arial", 16))
-meno_label.pack()
+meno_label = Label(okno, text='Zadajte meno', font=("Arial", 16), bg='#46178f', fg='white')
+meno_label.pack(pady=10)
 meno = StringVar()
-meno_entry = Entry(okno, textvariable=meno, font=("Arial", 14))
+meno_entry = Entry(okno, textvariable=meno, font=("Arial", 14), fg='black', bg='white', bd=0)
 meno_entry.pack()
-zacat_button = Button(okno, text='Začať kvíz', command=over_meno, font=("Arial", 14))
-zacat_button.pack()
+zacat_button = Button(okno, text='Začať kvíz', command=over_meno, font=("Arial", 14), bg='#864cbf', fg='white')
+zacat_button.pack(pady=20)
 
 otazky = nacitaj_otazky('otazky.txt')
 aktualna_otazka_index = 0
