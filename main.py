@@ -107,6 +107,11 @@ def zobraz_novu_otazku():
     '''
     Táto funkcia zobrazí novú otázku po kliknutí na odpoveď
     '''
+    def close():
+        okno.destroy()
+    def percenta():
+        vysledok = 100 // len(otazky) * counter
+        return vysledok
     odpoved1_button.pack_forget()
     odpoved2_button.pack_forget()
     odpoved3_button.pack_forget()
@@ -116,7 +121,10 @@ def zobraz_novu_otazku():
     if aktualna_otazka_index < len(otazky):
         spusti_kviz()
     else:
-        messagebox.showinfo('Kvíz', f'Kvíz skončil, počet bodov: {counter} z {len(otazky)}')
+        otazka_label.pack_forget()
+        end_button = Button(okno, text='Skončiť program', command=lambda: close(), font=('Arial', 14))
+        end_button.pack()
+        messagebox.showinfo('Kvíz', f'Kvíz skončil, počet bodov: {counter} z {len(otazky)}. ({percenta()}%)')
 
 meno_label = Label(okno, text='Zadajte meno', font=("Arial", 16))
 meno_label.pack()
