@@ -27,22 +27,27 @@ def over_meno():
     '''
     m = meno.get()
     s_znaky = '@_-ß°{()}#*&[]\;|?><:~,€/ŁłĐđ÷×¤$'
+    checker = True
     for i in s_znaky:
         if i in m:
             messagebox.showwarning('Pozor!', 'Meno obsahuje nepovolené znaky!')
             meno.set('')
+            checker = False
     if len(m) >= 30:
         messagebox.showwarning('Pozor!', 'Meno je príliš dlhé!')
         meno.set('')
+        checker =  False
     if len(m) == 0:
         messagebox.showwarning('Pozor!', 'Meno je prázdne!')
         meno.set('')
-
-    meno_label.destroy()
-    meno_entry.destroy()
-    zacat_button.destroy()
-
-    spusti_kviz()
+        checker = False
+    if checker == True:
+        meno_label.destroy()
+        meno_entry.destroy()
+        zacat_button.destroy()
+        spusti_kviz()
+    else:
+        meno.get()
 
 def spusti_kviz():
     '''
@@ -107,7 +112,7 @@ def zobraz_novu_otazku():
     if aktualna_otazka_index < len(otazky):
         spusti_kviz()
     else:
-        messagebox.showinfo('Kvíz', 'Kvíz skončil')
+        messagebox.showinfo('Kvíz', f'Kvíz skončil, počet bodov: {counter}')
 
 meno_label = Label(okno, text='Zadajte meno', font=("Arial", 16))
 meno_label.pack()
