@@ -7,14 +7,13 @@ okno.title('Kvíz')
 okno.config(bg='#46178f')
 photo = PhotoImage(file = 'ikonka.png')
 okno.wm_iconphoto(False, photo)
-counter = 0
 
 # Vyrovnaie okna
 window_width = okno.winfo_screenwidth()
 window_height = okno.winfo_screenheight()
 x_coordinate = int((window_width / 2) - (500 / 2))
 y_coordinate = int((window_height / 2) - (700 / 2))
-okno.geometry(f"500x600+{x_coordinate}+{y_coordinate}")
+okno.geometry(f"500x650+{x_coordinate}+{y_coordinate}")
 
 def nacitaj_otazky(subor):
     '''
@@ -60,6 +59,7 @@ def spusti_kviz():
     global counter
 
     # Zobrazenie odpovedových tlačidiel
+    otazka_label.pack()
     odpoved1_button.pack(fill=X)
     odpoved2_button.pack(fill=X)
     odpoved3_button.pack(fill=X)
@@ -103,13 +103,6 @@ def spusti_kviz():
     odpoved4_button.config(text=otazka_odpovede4, height=3, command=lambda: (body4(), zobraz_novu_otazku()), bg='#FFA502', fg='white', font=('Arial', 20))
     counter_label.config(text=f'Body: {counter}', height=3, font=('Arial', 15), fg='white')
 
-    # Zobrazenie odpovedových tlačidiel
-    odpoved1_button.pack(fill=X)
-    odpoved2_button.pack(fill=X)
-    odpoved3_button.pack(fill=X)
-    odpoved4_button.pack(fill=X)
-    # odpovede = Frame(okno)
-    
     counter_label.pack()
     counter_label.config(bg='#46178f')
     aktualna_otazka_index += 1
@@ -135,7 +128,7 @@ def zobraz_novu_otazku():
         otazka_label.pack_forget()
         end_button = Button(okno, text='Skončiť program', command=lambda: close(), font=('Arial', 14))
         end_button.pack()
-        messagebox.showinfo('Kvíz', f'Gratulujeme {meno.get()}, dokončil si kvíz. Získal si takýto počet bodov: {counter} z {len(otazky)}. ({percenta()}%)')
+        messagebox.showinfo('Kvíz', f'Kvíz skončil, počet bodov: {counter} z {len(otazky)}. ({percenta()}%)')
 
 meno_label = Label(okno, text='Zadajte meno', font=("Arial", 16), bg='#46178f', fg='white')
 meno_label.pack(pady=10)
@@ -151,6 +144,7 @@ counter = 0
 
 otazka_label = Label(okno, text='', font=("Arial", 18))
 otazka_label.pack()
+otazka_label.forget()
 
 odpoved1_button = Button(okno, text='', font=("Arial", 14))
 odpoved1_button.pack()
