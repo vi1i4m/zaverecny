@@ -5,6 +5,8 @@ from tkinter import messagebox
 okno = Tk()
 okno.title('Kvíz')
 okno.config(bg='#46178f')
+photo = PhotoImage(file = 'ikonka.png')
+okno.wm_iconphoto(False, photo)
 counter = 0
 
 # Vyrovnaie okna
@@ -127,7 +129,7 @@ def zobraz_novu_otazku():
     odpoved4_button.pack_forget()
     counter_label.pack_forget()
 
-    if aktualna_otazka_index < 10:
+    if aktualna_otazka_index < len(otazky):
         spusti_kviz()
     else:
         otazka_label.pack_forget()
