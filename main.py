@@ -18,7 +18,7 @@ def nacitaj_otazky(subor):
     '''
     with open(subor, 'r', encoding="utf-8") as f:
         otazky = f.read().splitlines()
-    return otazky
+    return random.choice(otazky)
 
 def over_meno():
     '''
@@ -30,15 +30,13 @@ def over_meno():
         if i in m:
             messagebox.showwarning('Pozor!', 'Meno obsahuje nepovolené znaky!')
             meno.set('')
-            return
     if len(m) >= 30:
         messagebox.showwarning('Pozor!', 'Meno je príliš dlhé!')
         meno.set('')
-        return
     if len(m) == 0:
         messagebox.showwarning('Pozor!', 'Meno je prázdne!')
         meno.set('')
-        return
+        
 
     meno_label.destroy()
     meno_entry.destroy()
