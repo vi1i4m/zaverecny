@@ -4,6 +4,7 @@ from tkinter import messagebox
 
 okno = Tk()
 okno.title('Kvíz')
+counter = 0
 
 # Vyrovnaie okna
 window_width = okno.winfo_screenwidth()
@@ -18,7 +19,7 @@ def nacitaj_otazky(subor):
     '''
     with open(subor, 'r', encoding="utf-8") as f:
         otazky = f.read().splitlines()
-    return random.choice(otazky)
+    return otazky
 
 def over_meno():
     '''
@@ -36,7 +37,6 @@ def over_meno():
     if len(m) == 0:
         messagebox.showwarning('Pozor!', 'Meno je prázdne!')
         meno.set('')
-        
 
     meno_label.destroy()
     meno_entry.destroy()
@@ -49,11 +49,28 @@ def spusti_kviz():
     Táto funkcia spustí kvíz po zadaní mena s použitím global indexovania z otázok
     '''
     global aktualna_otazka_index
+    global counter
     otazka_odpovede = otazky[aktualna_otazka_index].split('-')
     otazka_odpovede1 = otazka_odpovede[random.randint(1, 4)]
     otazka_odpovede2 = otazka_odpovede[random.randint(1, 4)]
     otazka_odpovede3 = otazka_odpovede[random.randint(1, 4)]
     otazka_odpovede4 = otazka_odpovede[random.randint(1, 4)]
+    def body1():
+        if odpoved1_button["text"] == otazka_odpovede[1]:
+            global counter
+            counter += 1
+    def body2():
+        if odpoved2_button["text"] == otazka_odpovede[1]:
+            global counter
+            counter += 1
+    def body3():
+        if odpoved3_button["text"] == otazka_odpovede[1]:
+            global counter
+            counter += 1
+    def body4():
+        if odpoved4_button["text"] == otazka_odpovede[1]:
+            global counter
+            counter += 1
     while otazka_odpovede1 == otazka_odpovede2 or otazka_odpovede1 == otazka_odpovede3 or otazka_odpovede1 == otazka_odpovede4:
         otazka_odpovede1 = otazka_odpovede[random.randint(1, 4)]
     while otazka_odpovede1 == otazka_odpovede2 or otazka_odpovede2 == otazka_odpovede3 or otazka_odpovede2 == otazka_odpovede4:
@@ -63,17 +80,18 @@ def spusti_kviz():
     while otazka_odpovede1 == otazka_odpovede4 or otazka_odpovede2 == otazka_odpovede4 or otazka_odpovede3 == otazka_odpovede4:
         otazka_odpovede4 = otazka_odpovede[random.randint(1, 4)]
     otazka_label.config(text=otazka_odpovede[0])
-    odpoved1_button.config(text=otazka_odpovede1, command=lambda: zobraz_novu_otazku())
-    odpoved2_button.config(text=otazka_odpovede2, command=lambda: zobraz_novu_otazku())
-    odpoved3_button.config(text=otazka_odpovede3, command=lambda: zobraz_novu_otazku())
-    odpoved4_button.config(text=otazka_odpovede4, command=lambda: zobraz_novu_otazku())
+    odpoved1_button.config(text=otazka_odpovede1, command=lambda: (body1(), zobraz_novu_otazku()))
+    odpoved2_button.config(text=otazka_odpovede2, command=lambda: (body2(), zobraz_novu_otazku()))
+    odpoved3_button.config(text=otazka_odpovede3, command=lambda: (body3(), zobraz_novu_otazku()))
+    odpoved4_button.config(text=otazka_odpovede4, command=lambda: (body4(), zobraz_novu_otazku()))
+    counter_label.config(text=f'Body: {counter}', font=('Arial', 8))
 
     # Zobrazenie odpovedových tlačidiel
     odpoved1_button.pack(fill=X)
     odpoved2_button.pack(fill=X)
     odpoved3_button.pack(fill=X)
     odpoved4_button.pack(fill=X)
-
+    counter_label.pack()
     aktualna_otazka_index += 1
 
 def zobraz_novu_otazku():
@@ -84,6 +102,7 @@ def zobraz_novu_otazku():
     odpoved2_button.pack_forget()
     odpoved3_button.pack_forget()
     odpoved4_button.pack_forget()
+    counter_label.pack_forget()
 
     if aktualna_otazka_index < len(otazky):
         spusti_kviz()
@@ -119,5 +138,9 @@ odpoved3_button.pack_forget()
 odpoved4_button = Button(okno, text='', font=("Arial", 14))
 odpoved4_button.pack()
 odpoved4_button.pack_forget()
+
+counter_label = Label(okno, text='')
+counter_label.pack()
+counter_label.pack_forget()
 
 okno.mainloop()
