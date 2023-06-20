@@ -3,10 +3,14 @@ from tkinter import *
 from tkinter import messagebox
 
 okno = Tk()
-okno.geometry('500x700')
 okno.title('Kvíz')
-okno.rowconfigure(50)
-okno.columnconfigure(50)
+
+# Vyrovnaie okna
+window_width = okno.winfo_screenwidth()
+window_height = okno.winfo_screenheight()
+x_coordinate = int((window_width / 2) - (500 / 2))
+y_coordinate = int((window_height / 2) - (700 / 2))
+okno.geometry(f"500x600+{x_coordinate}+{y_coordinate}")
 
 def nacitaj_otazky(subor):
     '''
@@ -66,11 +70,11 @@ def spusti_kviz():
     odpoved3_button.config(text=otazka_odpovede3, command=lambda: zobraz_novu_otazku())
     odpoved4_button.config(text=otazka_odpovede4, command=lambda: zobraz_novu_otazku())
 
-    #Zobrazenie odpovedových tlačidiel
-    odpoved1_button.grid()
-    odpoved2_button.grid()
-    odpoved3_button.grid()
-    odpoved4_button.grid()
+    # Zobrazenie odpovedových tlačidiel
+    odpoved1_button.pack(fill=X)
+    odpoved2_button.pack(fill=X)
+    odpoved3_button.pack(fill=X)
+    odpoved4_button.pack(fill=X)
 
     aktualna_otazka_index += 1
 
@@ -78,44 +82,44 @@ def zobraz_novu_otazku():
     '''
     Táto funkcia zobrazí novú otázku po kliknutí na odpoveď
     '''
-    odpoved1_button.grid_remove()
-    odpoved2_button.grid_remove()
-    odpoved3_button.grid_remove()
-    odpoved4_button.grid_remove()
+    odpoved1_button.pack_forget()
+    odpoved2_button.pack_forget()
+    odpoved3_button.pack_forget()
+    odpoved4_button.pack_forget()
 
     if aktualna_otazka_index < len(otazky):
         spusti_kviz()
     else:
         messagebox.showinfo('Kvíz', 'Kvíz skončil')
 
-meno_label = Label(okno, text='Zadajte meno')
-meno_label.grid(row=1, column=1)
+meno_label = Label(okno, text='Zadajte meno', font=("Arial", 16))
+meno_label.pack()
 meno = StringVar()
-meno_entry = Entry(okno, textvariable=meno)
-meno_entry.grid(row=2, column=1)
-zacat_button = Button(okno, text='Začať kvíz', command=over_meno)
-zacat_button.grid(row=3, column=1)
+meno_entry = Entry(okno, textvariable=meno, font=("Arial", 14))
+meno_entry.pack()
+zacat_button = Button(okno, text='Začať kvíz', command=over_meno, font=("Arial", 14))
+zacat_button.pack()
 
 otazky = nacitaj_otazky('otazky.txt')
 aktualna_otazka_index = 0
 
-otazka_label = Label(okno, text='')
-otazka_label.grid(row=4, column=1, columnspan=2)
+otazka_label = Label(okno, text='', font=("Arial", 18))
+otazka_label.pack()
 
-odpoved1_button = Button(okno, text='')
-odpoved1_button.grid(row=5, column=1)
-odpoved1_button.grid_remove() #Skrytie tlačidla
+odpoved1_button = Button(okno, text='', font=("Arial", 14))
+odpoved1_button.pack()
+odpoved1_button.pack_forget()  # Skrytie tlačidla
 
-odpoved2_button = Button(okno, text='')
-odpoved2_button.grid(row=5, column=2)
-odpoved2_button.grid_remove()
+odpoved2_button = Button(okno, text='', font=("Arial", 14))
+odpoved2_button.pack()
+odpoved2_button.pack_forget()
 
-odpoved3_button = Button(okno, text='')
-odpoved3_button.grid(row=6, column=1)
-odpoved3_button.grid_remove()
+odpoved3_button = Button(okno, text='', font=("Arial", 14))
+odpoved3_button.pack()
+odpoved3_button.pack_forget()
 
-odpoved4_button = Button(okno, text='')
-odpoved4_button.grid(row=6, column=2)
-odpoved4_button.grid_remove()
+odpoved4_button = Button(okno, text='', font=("Arial", 14))
+odpoved4_button.pack()
+odpoved4_button.pack_forget()
 
 okno.mainloop()
