@@ -128,7 +128,7 @@ def zobraz_novu_otazku():
         otazka_label.pack_forget()
         end_button = Button(okno, text='Skončiť program', command=lambda: close(), font=('Arial', 14))
         end_button.pack()
-        messagebox.showinfo('Kvíz', f'Kvíz skončil, počet bodov: {counter} z {len(otazky)}. ({percenta()}%)')
+        messagebox.showinfo('Kvíz', f'{meno.get()} získal si {counter} z {len(otazky)} bodov. ({percenta()}%)')
 
 meno_label = Label(okno, text='Zadajte meno', font=("Arial", 16), bg='#46178f', fg='white')
 meno_label.pack(pady=10)
