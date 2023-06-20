@@ -14,7 +14,7 @@ window_width = okno.winfo_screenwidth()
 window_height = okno.winfo_screenheight()
 x_coordinate = int((window_width / 2) - (500 / 2))
 y_coordinate = int((window_height / 2) - (700 / 2))
-okno.geometry(f"500x650+{x_coordinate}+{y_coordinate}")
+okno.geometry(f"500x600+{x_coordinate}+{y_coordinate}")
 
 def nacitaj_otazky(subor):
     '''
