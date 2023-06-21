@@ -131,7 +131,7 @@ def zobraz_novu_otazku():
         messagebox.showinfo('Kvíz', f'{meno.get()} získal si {counter} z {len(otazky)} bodov. ({percenta()}%)')
 
 meno_label = Label(okno, text='Zadajte meno', font=("Arial", 16), bg='#46178f', fg='white')
-meno_label.pack(pady=(250,5))
+meno_label.pack(pady=(200,5))
 meno = StringVar()
 meno_entry = Entry(okno, textvariable=meno, font=("Arial", 14), fg='black', bg='white', bd=0)
 meno_entry.pack(pady=10)
