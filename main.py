@@ -129,9 +129,10 @@ def zobraz_novu_otazku():
         otazka_label.pack_forget()
         end_button = Button(okno, text='Skončiť program', command=lambda: close(), font=('Arial', 14), bg='#864cbf', fg='white')
         end_button.pack(pady=(200,5))
-        tabulka_button = Button(okno, text='Tabuľka', command=zapis_do_tabulky, font=('Arial', 14), bg='#864cbf', fg='white')
+        tabulka_button = Button(okno, text='Tabuľka',font=('Arial', 14), bg='#864cbf', fg='white')
         tabulka_button.pack()
         messagebox.showinfo('Kvíz', f'{meno.get()} získal si {counter} z {len(otazky)} bodov. ({percenta()}%)')
+        zapis_do_tabulky()
 
 def zapis_do_tabulky():
     with open('vysledky.txt', 'a', encoding="utf-8") as f:
@@ -151,7 +152,7 @@ counter = 0
 
 otazka_label = Label(okno, text='', font=("Arial", 18))
 otazka_label.pack()
-otazka_label.forget()
+otazka_label.forget() #nie je tu chyba?
 
 odpoved1_button = Button(okno, text='', font=("Arial", 14))
 odpoved1_button.pack()
