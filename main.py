@@ -114,8 +114,8 @@ def zobraz_novu_otazku():
     def close():
         okno.destroy()
     def percenta():
-        vysledok = 100 // len(otazky) * counter
-        return vysledok
+        vysledok = 100 / len(otazky) * counter
+        return round(vysledok, 0)
     odpoved1_button.pack_forget()
     odpoved2_button.pack_forget()
     odpoved3_button.pack_forget()
