@@ -5,7 +5,7 @@ from tkinter import messagebox
 okno = Tk()
 okno.title('Kvíz')
 okno.config(bg='#46178f')
-photo = PhotoImage(file = 'ikonka.png')
+photo = PhotoImage(file='ikonka.png')
 okno.wm_iconphoto(False, photo)
 
 # Vyrovnaie okna
@@ -111,7 +111,6 @@ def zobraz_novu_otazku():
     '''
     Táto funkcia zobrazí novú otázku po kliknutí na odpoveď
     '''
-    global percenta
     global tabulka_button
     global end_button
     def close():
@@ -130,13 +129,16 @@ def zobraz_novu_otazku():
     else:
         otazka_label.pack_forget()
         end_button = Button(okno, text='Skončiť program', command=lambda: close(), font=('Arial', 14), bg='#864cbf', fg='white')
-        end_button.pack(pady=(200,5))
+        end_button.pack(pady=(200, 5))
         zapis_do_tabulky()
         tabulka_button = Button(okno, text='Tabuľka', command=zobraz_tabulku, font=('Arial', 14), bg='#864cbf', fg='white')
         tabulka_button.pack()
         messagebox.showinfo('Kvíz', f'{meno.get()} získal si {counter} z {len(otazky)} bodov. ({percenta()}%)')
 
 def zapis_do_tabulky():
+    def percenta():
+        vysledok = 100 / len(otazky) * counter
+        return round(vysledok, 0)
     skore = f'{counter}/{len(otazky)}'
     medzery = (17 - len(meno.get())) * ' '
     with open('vysledky.txt', 'a', encoding="utf-8") as f:
@@ -151,15 +153,15 @@ def zobraz_tabulku():
     platno.pack(fill=X)
     with open('vysledky.txt', 'r', encoding="utf-8") as f:
         data = f.read().splitlines()
-    platno.create_text(80,20, text='Výsledky používateľov', fill='white',font=('Arial', 20), anchor=W)
+    platno.create_text(80, 20, text='Výsledky používateľov', fill='white', font=('Arial', 20), anchor=W)
     for i in data:
-        platno.create_text(80, posun, text=i, fill='white', font=('Arial', 15),anchor=W)
+        platno.create_text(80, posun, text=i, fill='white', font=('Arial', 15), anchor=W)
         posun += 40
         
     
 
 meno_label = Label(okno, text='Zadajte meno', font=("Arial", 16), bg='#46178f', fg='white')
-meno_label.pack(pady=(200,5))
+meno_label.pack(pady=(200, 5))
 meno = StringVar()
 meno_entry = Entry(okno, textvariable=meno, font=("Arial", 14), fg='black', bg='white', bd=0)
 meno_entry.pack(pady=10)
@@ -172,7 +174,7 @@ counter = 0
 
 otazka_label = Label(okno, text='', font=("Arial", 18))
 otazka_label.pack()
-otazka_label.forget() #nie je tu chyba?
+otazka_label.forget()
 
 odpoved1_button = Button(okno, text='', font=("Arial", 14))
 odpoved1_button.pack()
