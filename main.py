@@ -111,6 +111,7 @@ def zobraz_novu_otazku():
     '''
     Táto funkcia zobrazí novú otázku po kliknutí na odpoveď
     '''
+    global percenta
     def close():
         okno.destroy()
     def percenta():
@@ -128,7 +129,13 @@ def zobraz_novu_otazku():
         otazka_label.pack_forget()
         end_button = Button(okno, text='Skončiť program', command=lambda: close(), font=('Arial', 14), bg='#864cbf', fg='white')
         end_button.pack(pady=(200,5))
+        tabulka_button = Button(okno, text='Tabuľka', command=zapis_do_tabulky, font=('Arial', 14), bg='#864cbf', fg='white')
+        tabulka_button.pack()
         messagebox.showinfo('Kvíz', f'{meno.get()} získal si {counter} z {len(otazky)} bodov. ({percenta()}%)')
+
+def zapis_do_tabulky():
+    with open('vysledky.txt', 'a', encoding="utf-8") as f:
+        f.write(f'{meno.get()}-{counter}/{len(otazky)}-{percenta()}%\n')
 
 meno_label = Label(okno, text='Zadajte meno', font=("Arial", 16), bg='#46178f', fg='white')
 meno_label.pack(pady=(200,5))
