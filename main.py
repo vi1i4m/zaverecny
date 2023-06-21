@@ -112,6 +112,8 @@ def zobraz_novu_otazku():
     Táto funkcia zobrazí novú otázku po kliknutí na odpoveď
     '''
     global percenta
+    global tabulka_button
+    global end_button
     def close():
         okno.destroy()
     def percenta():
@@ -129,14 +131,30 @@ def zobraz_novu_otazku():
         otazka_label.pack_forget()
         end_button = Button(okno, text='Skončiť program', command=lambda: close(), font=('Arial', 14), bg='#864cbf', fg='white')
         end_button.pack(pady=(200,5))
-        tabulka_button = Button(okno, text='Tabuľka',font=('Arial', 14), bg='#864cbf', fg='white')
+        zapis_do_tabulky()
+        tabulka_button = Button(okno, text='Tabuľka', command=zobraz_tabulku, font=('Arial', 14), bg='#864cbf', fg='white')
         tabulka_button.pack()
         messagebox.showinfo('Kvíz', f'{meno.get()} získal si {counter} z {len(otazky)} bodov. ({percenta()}%)')
-        zapis_do_tabulky()
 
 def zapis_do_tabulky():
     with open('vysledky.txt', 'a', encoding="utf-8") as f:
-        f.write(f'{meno.get()}-{counter}/{len(otazky)}-{percenta()}%\n')
+        f.write(f'{meno.get()}         {counter}/{len(otazky)}         {percenta()}%\n')
+    
+
+def zobraz_tabulku():
+    posun = 70
+    tabulka_button.pack_forget()
+    end_button.pack(pady=20, anchor=N)
+    platno = Canvas(okno, bg='#46178f', highlightthickness=0, height=window_height)
+    platno.pack(fill=X)
+    with open('vysledky.txt', 'r', encoding="utf-8") as f:
+        data = f.read().splitlines()
+    platno.create_text(80,20, text='Výsledky používateľov', fill='white',font=('Arial', 20), anchor=W)
+    for i in data:
+        platno.create_text(80, posun, text=i, fill='white', font=('Arial', 15),anchor=W)
+        posun += 40
+        
+    
 
 meno_label = Label(okno, text='Zadajte meno', font=("Arial", 16), bg='#46178f', fg='white')
 meno_label.pack(pady=(200,5))
