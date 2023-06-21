@@ -131,12 +131,12 @@ def zobraz_novu_otazku():
         messagebox.showinfo('Kvíz', f'{meno.get()} získal si {counter} z {len(otazky)} bodov. ({percenta()}%)')
 
 meno_label = Label(okno, text='Zadajte meno', font=("Arial", 16), bg='#46178f', fg='white')
-meno_label.pack(pady=10)
+meno_label.pack(pady=(250,5))
 meno = StringVar()
 meno_entry = Entry(okno, textvariable=meno, font=("Arial", 14), fg='black', bg='white', bd=0)
-meno_entry.pack()
+meno_entry.pack(pady=10)
 zacat_button = Button(okno, text='Začať kvíz', command=over_meno, font=("Arial", 14), bg='#864cbf', fg='white')
-zacat_button.pack(pady=20)
+zacat_button.pack()
 
 otazky = nacitaj_otazky('otazky.txt')
 aktualna_otazka_index = 0
