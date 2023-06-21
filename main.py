@@ -35,7 +35,7 @@ def over_meno():
             messagebox.showwarning('Pozor!', 'Meno obsahuje nepovolené znaky!')
             meno.set('')
             checker = False
-    if len(m) >= 30:
+    if len(m) >= 16:
         messagebox.showwarning('Pozor!', 'Meno je príliš dlhé!')
         meno.set('')
         checker =  False
@@ -137,8 +137,10 @@ def zobraz_novu_otazku():
         messagebox.showinfo('Kvíz', f'{meno.get()} získal si {counter} z {len(otazky)} bodov. ({percenta()}%)')
 
 def zapis_do_tabulky():
+    skore = f'{counter}/{len(otazky)}'
+    medzery = (17 - len(meno.get())) * ' '
     with open('vysledky.txt', 'a', encoding="utf-8") as f:
-        f.write(f'{meno.get()}         {counter}/{len(otazky)}         {percenta()}%\n')
+        f.write(f'{meno.get()}{medzery}{skore :15}{percenta()}%\n')
     
 
 def zobraz_tabulku():
