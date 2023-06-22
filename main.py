@@ -28,7 +28,7 @@ def over_meno():
     funkcia načíta meno a skontroluje, či nie je príliš dlhé alebo neobsahuje nepovolené znaky (ak áno - vyskočí okno s chybovou správou), potom hodnotu vo vstupe vymaže
     '''
     m = meno.get()
-    s_znaky = '@_-ß°{()}#*&[]\;|?><:~,€/ŁłĐđ÷×¤$'
+    s_znaky = '@-ß°{()}#*&[]\;|?><:~,€/ŁłĐđ÷×¤$'
     checker = True
     for i in s_znaky:
         if i in m:
@@ -66,18 +66,30 @@ def spusti_kviz():
     odpoved4_button.pack(fill=X)
 
     def body1():
+        '''
+        funkcia, kt po kliknuti na odpoved porovna obsah tlacidla so spravnou odpovedou (ak je odpoved spravna - pripocita bod)
+        '''
         if odpoved1_button["text"] == otazka_odpovede[1]:
             global counter
             counter += 1
     def body2():
+        '''
+        funkcia, kt po kliknuti na odpoved porovna obsah tlacidla so spravnou odpovedou (ak je odpoved spravna - pripocita bod)
+        '''
         if odpoved2_button["text"] == otazka_odpovede[1]:
             global counter
             counter += 1
     def body3():
+        '''
+        funkcia, kt po kliknuti na odpoved porovna obsah tlacidla so spravnou odpovedou (ak je odpoved spravna - pripocita bod)
+        '''
         if odpoved3_button["text"] == otazka_odpovede[1]:
             global counter
             counter += 1
     def body4():
+        '''
+        funkcia, kt po kliknuti na odpoved porovna obsah tlacidla so spravnou odpovedou (ak je odpoved spravna - pripocita bod)
+        '''
         if odpoved4_button["text"] == otazka_odpovede[1]:
             global counter
             counter += 1
@@ -101,7 +113,7 @@ def spusti_kviz():
     odpoved2_button.config(text=otazka_odpovede2, height=3, command=lambda: (body2(), zobraz_novu_otazku()), bg='#1368CE', fg='white', font=('Arial', 20))
     odpoved3_button.config(text=otazka_odpovede3, height=3, command=lambda: (body3(), zobraz_novu_otazku()), bg='#26890C', fg='white', font=('Arial', 20))
     odpoved4_button.config(text=otazka_odpovede4, height=3, command=lambda: (body4(), zobraz_novu_otazku()), bg='#FFA502', fg='white', font=('Arial', 20))
-    counter_label.config(text=f'Body: {counter}', height=3, font=('Arial', 15), fg='white')
+    counter_label.config(text=f'Body: {counter}/{len(otazky)}', height=3, font=('Arial', 15), fg='white')
 
     counter_label.pack()
     counter_label.config(bg='#46178f')
@@ -136,6 +148,9 @@ def zobraz_novu_otazku():
         messagebox.showinfo('Kvíz', f'{meno.get()} získal si {counter} z {len(otazky)} bodov. ({percenta()}%)')
 
 def zapis_do_tabulky():
+    '''
+    funkcia, kt. po skonceni zapise udaje o pouzivatelovi do suboru 'vysledky.txt'
+    '''
     def percenta():
         vysledok = 100 / len(otazky) * counter
         return round(vysledok, 0)
@@ -146,6 +161,9 @@ def zapis_do_tabulky():
     
 
 def zobraz_tabulku():
+    '''
+    po stlaceni tlacidla sa zobrazi tabulka s vysledkami pouzivatelov
+    '''
     posun = 70
     tabulka_button.pack_forget()
     end_button.pack(pady=20, anchor=N)
